@@ -1,3 +1,6 @@
+<?php
+include('connection.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 <body>
 <form method="POST" class="form">
@@ -102,44 +106,25 @@
             $remarks = "Fail";
             
         }
+       $query = $pdo->prepare("insert into enzo (name,math,physics,chemistry,urdu,english,obtain,percentage,grade,remarks) values (:pn,:pm,:pp,:pc,:pu,:pe,:po,:pper,:pg,:pr)
+       ");
+       $query->bindparam("pn",$name);
+       $query->bindparam("pm",$math);
+       $query->bindparam("pp",$physics);
+       $query->bindparam("pc",$chemistry);
+       $query->bindparam("pu",$urdu);
+       $query->bindparam("pe",$english);
+       $query->bindparam("po",$obtain);
+       $query->bindparam("pper",$per);
+       $query->bindparam("pg",$grade);
+       $query->bindparam("pr",$remarks);
+       $query-> execute();
+       echo "<script>
+       alert('data insert into table')
+       </script>";
+
         ?>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Math</th>
-                    <th scope="col">Physics</th>
-                    <th scope="col">Chemistry</th>
-                    <th scope="col">Urdu</th>
-                    <th scope="col">English</th>
-                    <th scope="col">Total Marks</th>
-                    <th scope="col">Obtain Marks</th>
-                    <th scope="col">Percentage</th>
-                    <th scope="col">Grade</th>
-                    <th scope="col">Remarks</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <!-- <th scope="row"></th> -->
-                    <td><?php echo $name ?></td>
-                    <td> <?php echo $math ?></td>
-                    <td><?php echo $physics ?></td>
-                    <td><?php echo $chemistry ?></td>
-                    <td><?php echo $urdu ?></td>
-                    <td><?php echo $english ?></td>
-                    <td><?php echo $total ?></td>
-                    <td><?php echo $obtain ?></td>
-                    <td><?php echo $per ?></td>
-                    <td><?php echo $grade ?></td>
-                    <td><?php echo $remarks ?></td>
-                </tr>
-                <tr>
-                    <th scope="row"></th>
-                    
-                </tr>
-            </tbody>
-        </table>
+       
         <?php
 
     }
