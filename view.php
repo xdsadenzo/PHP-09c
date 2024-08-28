@@ -1,3 +1,16 @@
+<?php
+include('connection.php');
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    
 <table class="table">
             <thead>
                 <tr>
@@ -14,24 +27,34 @@
                     <th scope="col">Remarks</th>
                 </tr>
             </thead>
+           
             <tbody>
+            <?php
+            $query = $pdo->query("select * from enzo");
+            $row = $query->fetchAll(PDO::FETCH_ASSOC);
+            foreach($row as $value){
+            ?>
                 <tr>
                     <!-- <th scope="row"></th> -->
-                    <td><?php echo $name ?></td>
-                    <td> <?php echo $math ?></td>
-                    <td><?php echo $physics ?></td>
-                    <td><?php echo $chemistry ?></td>
-                    <td><?php echo $urdu ?></td>
-                    <td><?php echo $english ?></td>
-                    <td><?php echo $total ?></td>
-                    <td><?php echo $obtain ?></td>
-                    <td><?php echo $per ?></td>
-                    <td><?php echo $grade ?></td>
-                    <td><?php echo $remarks ?></td>
+                    <td><?php echo $value['name']; ?></td>
+                    <td> <?php echo $value['math']; ?></td>
+                    <td><?php echo $value['physics']; ?></td>
+                    <td><?php echo $value['chemistry']; ?></td>
+                    <td><?php echo $value['urdu']; ?></td>
+                    <td><?php echo $value['english']; ?></td>
+                    <td><?php echo $value['total']; ?></td>
+                    <td><?php echo $value['obtain']; ?></td>
+                    <td><?php echo $value['percentage']; ?></td>
+                    <td><?php echo $value['grade']; ?></td>
+                    <td><?php echo $value['remarks'] ?></td>
+                    <td><a href="update.php?id=<?php echo $value['id'] ?>" class="btn-success">EDIT</a></td>
+                    <td><a href="" class="btn-danger">DELETE</a></td>
                 </tr>
-                <tr>
-                    <th scope="row"></th>
-                    
-                </tr>
+                <?php
+                }
+                ?>
+
             </tbody>
         </table>
+</body>
+</html>
