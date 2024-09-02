@@ -14,7 +14,7 @@ include('connection.php');
 if(isset($_GET['id'])){
     $id = $_GET['id'];
     $query = $pdo->prepare("select * from enzo where id=:pid");
-    $query->bindParam("pid",$pid);
+    $query->bindParam("pid",$id);
     $query->execute();
     $data = $query->fetch(PDO::FETCH_ASSOC);
 }
@@ -23,6 +23,7 @@ if(isset($_GET['id'])){
 <form method="POST" class="form">
     
     <div class="mb-3">
+        <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
         
         <label for="" class="form-label">Name</label>
         <input
@@ -68,10 +69,11 @@ if(isset($_GET['id'])){
              value = "<?php echo $data['english']; ?>"
         />
         </div>
-        <button type="submit" name="enter" class="btn btn-primary">Submit</button>
+        <button type="submit" name="update" class="btn btn-primary">Submit</button>
         </form>
         <?php
-        if(isset($_POST['enter'])){
+        if(isset($_POST['update'])){
+            $id = $_POST['id'];
             $name = $_POST['name'];
             $math = $_POST['math'];
             $physics = $_POST['physics'];
@@ -121,8 +123,8 @@ if(isset($_GET['id'])){
             $remarks = "Fail";
             
         }
-       $query = $pdo->prepare("insert into enzo (name,math,physics,chemistry,urdu,english,obtain,percentage,grade,remarks) values (:pn,:pm,:pp,:pc,:pu,:pe,:po,:pper,:pg,:pr)
-       ");
+       $query = $pdo->prepare("update enzo set name=:pn,math=:pm,physics=:pp,chemistry=:pc,urdu=:pu,english=:pe,obtain=:po,percentage=:pper,grade=:pg,remarks=:pr where id = :pid");
+       $query->bindparam("pid",$id);
        $query->bindparam("pn",$name);
        $query->bindparam("pm",$math);
        $query->bindparam("pp",$physics);
@@ -135,7 +137,9 @@ if(isset($_GET['id'])){
        $query->bindparam("pr",$remarks);
        $query-> execute();
        echo "<script>
-       alert('data insert into table')
+    
+       alert('data insert into table');
+       location.assign('view.php')
        </script>";
 
         ?>

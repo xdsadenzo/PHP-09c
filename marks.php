@@ -122,6 +122,7 @@ include('connection.php');
        echo "<script>
        alert('data insert into table')
        </script>";
+       
 
         ?>
        

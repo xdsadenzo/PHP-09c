@@ -48,9 +48,21 @@ include('connection.php');
                     <td><?php echo $value['grade']; ?></td>
                     <td><?php echo $value['remarks'] ?></td>
                     <td><a href="update.php?id=<?php echo $value['id'] ?>" class="btn-success">EDIT</a></td>
-                    <td><a href="" class="btn-danger">DELETE</a></td>
+                    <td><a href="?deleteid=<?php echo $value['id'] ?>" class="btn-danger">DELETE</a></td>
                 </tr>
                 <?php
+                }
+                if(isset($_GET['deleteid'])){
+                    $id = $_GET['deleteid'];
+                    $query = $pdo->prepare("delete from enzo where id = :pid");
+                    $query->bindparam("pid",$id);
+                    $query->execute();
+                    echo "<script>
+                    alert('Data deleted Successfully');
+                    location.assign('view.php');
+                    </script>";
+
+
                 }
                 ?>
 
